@@ -8,12 +8,10 @@ public class User implements Serializable {
 
     private final String mName;
     private final String mEmail;
-    private final int mUserId;
 
-    public User(String name, String email, int userId) {
+    public User(String name, String email) {
         mName = name;
         mEmail = email;
-        mUserId = userId;
     }
 
     public String getName() {
@@ -22,9 +20,5 @@ public class User implements Serializable {
 
     public String getEmail() {
         return mEmail;
-    }
-
-    public int getUserId() {
-        return mUserId;
     }
 }

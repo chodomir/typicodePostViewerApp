@@ -9,13 +9,11 @@ public class Post implements Serializable {
     private final String mTitle;
     private final String mBody;
     private final int mUserId;
-    private final int mId;
 
-    public Post(String title, String body, int userId, int id) {
+    public Post(String title, String body, int userId) {
         mTitle = title;
         mBody = body;
         mUserId = userId;
-        mId = id;
     }
 
     public String getTitle() {
@@ -28,9 +26,5 @@ public class Post implements Serializable {
 
     public int getUserId() {
         return mUserId;
-    }
-
-    public int getId() {
-        return mId;
     }
 }

@@ -39,9 +39,8 @@ public class ApiRequest {
                 String title = jObject.getString("title");
                 String body = jObject.getString("body");
                 int userId = jObject.getInt("userId");
-                int id = jObject.getInt("id");
 
-                posts.add(new Post(title, body, userId, id));
+                posts.add(new Post(title, body, userId));
             }
 
             Log.d(TAG, "GetPosts():: API call successful!");
@@ -69,10 +68,9 @@ public class ApiRequest {
             JSONObject jObject = jArray.getJSONObject(0);
             String name = jObject.getString("name");
             String email = jObject.getString("email");
-            int userId = jObject.getInt("id");
 
             Log.d(TAG, "GetUser():: API call successful!");
-            return new User(name, email, userId);
+            return new User(name, email);
         } catch (ExecutionException | InterruptedException | JSONException e) {
             Log.d(TAG, "ERROR:: GetUser()::" + e.getMessage());
         }

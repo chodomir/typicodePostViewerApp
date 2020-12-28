@@ -38,7 +38,7 @@ public class PostsFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rvPostList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // @TODO: Will this cause leaks? new PostAdapter(*getActivity()*, dataset);
+        // @TODO: Will this cause leaks?
         PostsAdapter adapter = new PostsAdapter(getActivity(), AppCacheManager.GetPosts());
         recyclerView.setAdapter(adapter);
 

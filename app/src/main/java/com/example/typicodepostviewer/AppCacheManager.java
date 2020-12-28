@@ -49,9 +49,11 @@ public class AppCacheManager {
         try(ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(sFile))) {
             sPosts = (CacheInfo<ArrayList<Post>>) objIn.readObject();
             sUsers = (Map<Integer, CacheInfo<User>>) objIn.readObject();
+            objIn.close();
+
             Log.d(TAG, "LoadCache():: Cache load successful!");
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.d(TAG, "ERROR:: LoadCache():: " + e.getMessage());
         }
     }
 
@@ -118,10 +120,11 @@ public class AppCacheManager {
         try(ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(sFile))) {
             objOut.writeObject(sPosts);
             objOut.writeObject(sUsers);
+            objOut.close();
 
             Log.d(TAG, "WriteToDisk():: Write successful!");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "ERROR:: WriteToDisk():: " + e.getMessage());
         }
     }
 }

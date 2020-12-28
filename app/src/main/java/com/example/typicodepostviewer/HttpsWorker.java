@@ -11,12 +11,6 @@ import java.util.concurrent.Callable;
 
 import javax.net.ssl.HttpsURLConnection;
 
-// @TODO: HttpsWorker should only download response from ANY given url, to make it more flexible
-
-// @TODO: I think the boolean forceNetworkResponse should not be there
-// HttpsWorker should return the downloaded response, nothing more, nothing less.
-// To enable that functionality, pass it the HttpsURLConnection and modify request properties
-// if needed there
 public class HttpsWorker implements Callable<String> {
     private final String mUrlAddress;
 
@@ -29,7 +23,6 @@ public class HttpsWorker implements Callable<String> {
         // Request API call
         URL url = new URL(mUrlAddress);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-        // use cache if possible
         connection.connect();
 
         // Read response

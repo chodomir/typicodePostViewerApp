@@ -56,8 +56,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             TextView title = (TextView) v.findViewById(R.id.tvTitle);
             TextView body = (TextView) v.findViewById(R.id.tvBody);
             Bundle bundle = new Bundle();
-            bundle.putInt("id", (int) title.getTag());
-            bundle.putInt("userId", (int) body.getTag());
+            bundle.putInt("userId", (int) title.getTag());
             bundle.putString("title", title.getText().toString());
             bundle.putString("body", body.getText().toString());
 
@@ -76,9 +75,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         holder.getTvTitle().setText(post.getTitle());
         holder.getTvBody().setText(post.getBody());
         // @TODO: hacky way of doing it, not sure how to do it otherwise
-        holder.getTvTitle().setTag(post.getId());
-        holder.getTvBody().setTag(post.getUserId());
-
+        holder.getTvTitle().setTag(post.getUserId());
     }
 
     @Override

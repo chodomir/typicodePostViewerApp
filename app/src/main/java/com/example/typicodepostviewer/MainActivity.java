@@ -32,15 +32,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AppCacheManager.Install(getCacheDir(), "typicodeCache");
-        ArrayList<Post> posts = (ArrayList<Post>) AppCacheManager.GetPosts();
-        Log.d(TAG, posts.get(0).getTitle());
-        posts = (ArrayList<Post>) AppCacheManager.GetPosts();
-        Log.d(TAG, posts.get(0).getTitle());
+    }
 
-        User user = AppCacheManager.GetUser(1);
-        Log.d(TAG, user.getName());
-        user = AppCacheManager.GetUser(1);
-        Log.d(TAG, user.getName());
+    @Override
+    protected void onStop() {
+        super.onStop();
 
         AppCacheManager.WriteToDisk();
     }

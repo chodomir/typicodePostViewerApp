@@ -35,6 +35,7 @@ public class UserFragment extends Fragment {
         String title = requireArguments().getString("title");
         String body = requireArguments().getString("body");
         int userId = requireArguments().getInt("userId");
+
         User user = AppCacheManager.GetUser(userId);
         ((TextView) view.findViewById(R.id.tvUserPostTitle)).setText(title);
         ((TextView) view.findViewById(R.id.tvUserPostBody)).setText(body);
