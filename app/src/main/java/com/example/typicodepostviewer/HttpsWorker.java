@@ -1,5 +1,7 @@
 package com.example.typicodepostviewer;
 
+import android.net.http.HttpResponseCache;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -9,20 +11,25 @@ import java.util.concurrent.Callable;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class HttpsWorker implements Callable<String> {
-    private static final String URL_ADDR = "https://jsonplaceholder.typicode.com/";
+// @TODO: HttpsWorker should only download response from ANY given url, to make it more flexible
 
-    private String query;
-    // @TODO: Test query to start with either 'posts/...' or 'users/...' ?!
-    HttpsWorker(String query) {
-        this.query = query;
+// @TODO: I think the boolean forceNetworkResponse should not be there
+// HttpsWorker should return the downloaded response, nothing more, nothing less.
+// To enable that functionality, pass it the HttpsURLConnection and modify request properties
+// if needed there
+public class HttpsWorker implements Callable<String> {
+    private final String mUrlAddress;
+
+    HttpsWorker(String url) {
+        mUrlAddress = url;
     }
 
     @Override
     public String call() throws Exception {
         // Request API call
-        URL url = new URL(URL_ADDR + query);
+        URL url = new URL(mUrlAddress);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        // use cache if possible
         connection.connect();
 
         // Read response
