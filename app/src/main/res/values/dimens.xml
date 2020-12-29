@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
 
     <dimen name="title_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
 
+    <dimen name="card_elevation">3dp</dimen>
+    <dimen name="card_corner_radius">5dp</dimen>
+
+    <dimen name="actionbar_elevation">4dp</dimen>
 </resources>
