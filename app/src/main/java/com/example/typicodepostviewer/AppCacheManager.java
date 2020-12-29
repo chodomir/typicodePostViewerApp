@@ -41,7 +41,6 @@ public class AppCacheManager {
     private static Map<Integer, CacheInfo<User>> sUsers;
     private static File sFile;
 
-    // TODO: don't forget to put this on 300
     public static final int CACHE_MAX_AGE_SECONDS = 300;
     public static final String TAG = "AppCacheManager";
 
@@ -79,10 +78,10 @@ public class AppCacheManager {
         }
     }
 
-    public static List<Post> GetPosts() {
+    public static ArrayList<Post> GetPosts(boolean forceNetworkResponse) {
         // Request an API call if cache not available or cache expired
-        if (!IsCacheValid(sPosts.getTimestamp())) {
-            Log.d(TAG, "GetPosts():: Cache expired or non-existent...requesting API call");
+        if (forceNetworkResponse || !IsCacheValid(sPosts.getTimestamp())) {
+            Log.d(TAG, "GetPosts():: Cache invalid. Requesting API call.");
             ArrayList<Post> posts = ApiRequest.GetPosts();
             long timestamp = System.currentTimeMillis() / 1000;
             sPosts = new CacheInfo<>(posts, timestamp);
@@ -96,7 +95,7 @@ public class AppCacheManager {
 
         // Request API call if cache not available or cache expired
         if (ci == null || (ci != null && !IsCacheValid(ci.getTimestamp()))) {
-            Log.d(TAG, "GetUser():: Cache expired or non-existent...requesting API call");
+            Log.d(TAG, "GetUser():: Cache invalid .Requesting API call");
             User user = ApiRequest.GetUser(id);
             long timestamp = System.currentTimeMillis()/1000;
             sUsers.put(id, new CacheInfo<>(user, timestamp));
@@ -105,14 +104,10 @@ public class AppCacheManager {
         return sUsers.get(id).getData();
     }
 
-    /**
-     * Removes a post from cached posts
-     * @param postId id of a post starting from 1
-     */
-    public static void RemovePost(int postId) {
+    public static void RemovePost(int position) {
         if (sPosts.getData() != null) {
             Log.d(TAG, "RemovePost():: Post removed");
-            sPosts.getData().remove(postId - 1);
+            sPosts.getData().remove(position);
         } else Log.d(TAG, "RemovePost():: Removal failed:: sPost.getData() is Null");
     }
     

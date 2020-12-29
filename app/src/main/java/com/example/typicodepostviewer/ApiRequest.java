@@ -39,8 +39,9 @@ public class ApiRequest {
                 String title = jObject.getString("title");
                 String body = jObject.getString("body");
                 int userId = jObject.getInt("userId");
+                int id = jObject.getInt("id");
 
-                posts.add(new Post(title, body, userId));
+                posts.add(new Post(title, body, userId, id));
             }
 
             Log.d(TAG, "GetPosts():: API call successful!");
