@@ -20,8 +20,7 @@ import android.widget.Toast;
  * A simple {@link Fragment} subclass.
  */
 public class UserFragment extends Fragment {
-    private static final String TAG = "UserFragment";
-    private int mPostPosition;
+    public static final String TAG = "UserFragment";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,9 +43,7 @@ public class UserFragment extends Fragment {
         String title = requireArguments().getString("title");
         String body = requireArguments().getString("body");
         int userId = requireArguments().getInt("userId");
-        mPostPosition = requireArguments().getInt("postPosition");
-
-        User user = AppCacheManager.GetUser(userId);
+        User user = MainActivity.sUsersCache.getData(MainActivity.USER_API_URL + userId, false);
         ((TextView) view.findViewById(R.id.tvUserPostTitle)).setText(title);
         ((TextView) view.findViewById(R.id.tvUserPostBody)).setText(body);
         ((TextView) view.findViewById(R.id.tvEmail)).setText(user.getEmail());
@@ -62,7 +59,10 @@ public class UserFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_delete) {
-            AppCacheManager.RemovePost(mPostPosition);
+            int postPosition = requireArguments().getInt("postPosition");
+            MainActivity.sPostsCache
+                    .getData(MainActivity.POST_API_URL, false)
+                    .remove(postPosition);
             getActivity().getSupportFragmentManager().popBackStack();
             Toast.makeText(getContext(), "Deleted!", Toast.LENGTH_SHORT).show();
             return true;

@@ -26,7 +26,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class PostsFragment extends Fragment implements RecyclerViewClickListener{
-    private static final String TAG = "PostsFragment";
+    public static final String TAG = "PostsFragment";
+
     private RecyclerView mRecyclerView;
     private List<Post> mPosts;
 
@@ -63,7 +64,8 @@ public class PostsFragment extends Fragment implements RecyclerViewClickListener
         mRecyclerView = rootView.findViewById(R.id.rvPostList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mPosts = AppCacheManager.GetPosts(false);
+        mPosts = MainActivity.sPostsCache.getData(MainActivity.POST_API_URL,
+                false);
         PostsAdapter adapter = new PostsAdapter(mPosts, this);
         mRecyclerView.setAdapter(adapter);
 
@@ -82,7 +84,8 @@ public class PostsFragment extends Fragment implements RecyclerViewClickListener
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            mPosts = AppCacheManager.GetPosts(true);
+            mPosts = MainActivity.sPostsCache.getData(MainActivity.POST_API_URL,
+                    true);
             PostsAdapter adapter = new PostsAdapter(mPosts, this);
             mRecyclerView.setAdapter(adapter);
 
